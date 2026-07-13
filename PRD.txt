@@ -1,0 +1,210 @@
+# PRD – iPhone Sales Generator (Personal Tool)
+
+## 1. Overview
+
+iPhone Sales Generator adalah website sederhana untuk membantu membuat deskripsi jualan iPhone dengan cepat.
+
+Pengguna tidak perlu login, tidak perlu mengisi banyak form, dan tidak perlu mengetik ulang template. Cukup memilih produk, mengisi Battery Health (BH), lalu sistem otomatis mengambil harga dari daftar harga dan menghasilkan deskripsi siap diposting.
+
+---
+
+# 2. Tujuan
+
+* Membuat deskripsi jualan dalam hitungan detik.
+* Menghindari pengetikan berulang.
+* Harga selalu mengikuti daftar harga terbaru.
+* Mudah digunakan sebagai tools pribadi.
+
+---
+
+# 3. Struktur Halaman
+
+Website hanya memiliki **2 menu**.
+
+### 1. Generate Deskripsi
+
+Halaman utama.
+
+### 2. Daftar Harga
+
+Digunakan untuk mengatur harga seluruh produk.
+
+---
+
+# 4. Halaman Generate Deskripsi
+
+Saat website dibuka, halaman ini langsung tampil.
+
+## Input
+
+### Produk
+
+Dropdown berisi seluruh produk.
+
+Contoh:
+
+* iPhone 11 Basic 64GB
+* iPhone 11 Basic 128GB
+* iPhone 12 Basic 128GB
+* iPhone 13 Basic 128GB
+* iPhone 13 Pro 128GB
+* iPhone 13 Pro Max 256GB
+* iPhone 14 Basic 128GB
+* iPhone 15 Pro 256GB
+* iPhone 16 Pro Max 512GB
+
+---
+
+### Battery Health
+
+Input angka.
+
+Contoh:
+
+93
+
+---
+
+### Harga
+
+Tidak dapat diedit.
+
+Saat produk dipilih, sistem otomatis mengambil harga dari menu **Daftar Harga**.
+
+Contoh:
+
+Rp7.500.000
+
+---
+
+### Tombol
+
+* Generate
+* Copy
+
+---
+
+# 5. Output
+
+Contoh hasil:
+
+Bismillah iPhone 13 128GB All Operator
+
+💰 Harga Rp7.500.000
+
+Mulus Terawat, Full Normal
+
+DETAIL BARANG:
+
+* BH 93%
+* Bukan SIM Lock • Bisa Semua Operator
+* FULLSET
+* Original Semua
+* Kamera D/B Jernih Aman
+* Face ID & True Tone ON
+* Garansi HP Tersedia
+* Bisa Kredit
+
+📍 COD Kota Malang
+
+Minat WA/DM:
+📞 https://wa.me/6281348831975
+
+---
+
+# 6. Halaman Daftar Harga
+
+Digunakan untuk mengelola harga produk.
+
+Data:
+
+* Nama Produk
+* Harga
+
+Contoh:
+
+| Produk                |        Harga |
+| --------------------- | -----------: |
+| iPhone 11 Basic 64GB  |  Rp4.300.000 |
+| iPhone 11 Basic 128GB |  Rp4.700.000 |
+| iPhone 12 Basic 128GB |  Rp6.200.000 |
+| iPhone 13 Basic 128GB |  Rp7.500.000 |
+| iPhone 13 Pro 256GB   | Rp10.300.000 |
+
+Fitur:
+
+* Tambah Produk
+* Edit Harga
+* Hapus Produk
+
+---
+
+# 7. Alur Penggunaan
+
+1. Buka website.
+2. Pilih produk dari dropdown.
+3. Harga otomatis muncul sesuai daftar harga.
+4. Isi Battery Health (BH).
+5. Klik **Generate**.
+6. Deskripsi langsung muncul.
+7. Klik **Copy**.
+8. Tempel ke WhatsApp, Facebook, atau Marketplace.
+
+---
+
+# 8. Template
+
+Template dibuat satu kali dan digunakan untuk semua produk.
+
+Placeholder yang berubah:
+
+* Nama Produk
+* Harga
+* Battery Health
+
+Template:
+
+Bismillah {{produk}}
+
+💰 Harga {{harga}}
+
+Mulus Terawat, Full Normal
+
+DETAIL BARANG:
+
+* BH {{bh}}%
+* Bukan SIM Lock • Bisa Semua Operator
+* FULLSET
+* Original Semua
+* Kamera D/B Jernih Aman
+* Face ID & True Tone ON
+* Garansi HP Tersedia
+* Bisa Kredit
+
+📍 COD Kota Malang
+
+Minat WA/DM:
+📞 https://wa.me/6281348831975
+
+---
+
+# 9. Teknologi
+
+* React.js
+* Tailwind CSS
+* Vite
+* Local Storage (menyimpan daftar harga di browser)
+
+---
+
+# 10. MVP
+
+* Tanpa Login
+* Tanpa Dashboard
+* Generate Deskripsi
+* Dropdown Produk
+* Harga Otomatis
+* Input Battery Health
+* Template Otomatis
+* Copy ke Clipboard
+* CRUD Daftar Harga
