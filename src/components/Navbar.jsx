@@ -43,8 +43,8 @@ export function Navbar({ currentView, setCurrentView }) {
           </button>
         </div>
         <div className="pr-2">
-          <h1 className="font-bold text-lg bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent">
-            iSales Gen
+          <h1 className="font-bold text-lg text-primary">
+            Sales
           </h1>
         </div>
       </div>
