@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Copy, FileText, CheckCircle2, Search, ChevronDown } from 'lucide-react';
 import { formatRupiah } from '../utils/formatRupiah';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { DEFAULT_TEMPLATE } from './FormatEditor';
+import { DEFAULT_TEMPLATE_INTER, DEFAULT_TEMPLATE_IBOX } from './FormatEditor';
 
 export function Generate({ products }) {
   const [selectedProductId, setSelectedProductId] = useState('');
@@ -10,7 +10,8 @@ export function Generate({ products }) {
   const [generatedText, setGeneratedText] = useState('');
   const [copied, setCopied] = useState(false);
   
-  const [templateStorage] = useLocalStorage('generate_template', DEFAULT_TEMPLATE);
+  const [templateInter] = useLocalStorage('generate_template_inter', DEFAULT_TEMPLATE_INTER);
+  const [templateIbox] = useLocalStorage('generate_template_ibox', DEFAULT_TEMPLATE_IBOX);
   const [notes, setNotes] = useLocalStorage('iphone_notes', '');
 
   // States for searchable dropdown
@@ -58,15 +59,11 @@ export function Generate({ products }) {
     }
 
     const isIbox = selectedProduct.name.toLowerCase().includes('ibox');
-    const labelAllOperator = isIbox ? '' : ' All Operator';
-    const labelSimLock = isIbox ? '' : '\n- Bukan SIM Lock • Bisa Semua Operator';
 
-    let result = templateStorage;
+    let result = isIbox ? templateIbox : templateInter;
     result = result.replace(/\[NAMA_PRODUK\]/g, selectedProduct.name);
     result = result.replace(/\[HARGA\]/g, formatRupiah(selectedProduct.price));
     result = result.replace(/\[BH\]/g, batteryHealth);
-    result = result.replace(/\[LABEL_ALL_OPERATOR\]/g, labelAllOperator);
-    result = result.replace(/\[LABEL_SIM_LOCK\]/g, labelSimLock);
 
     setGeneratedText(result);
     setCopied(false);
