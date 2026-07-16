@@ -2,12 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Copy, FileText, CheckCircle2, Search, ChevronDown } from 'lucide-react';
 import { formatRupiah } from '../utils/formatRupiah';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { DEFAULT_TEMPLATE } from './FormatEditor';
 
 export function Generate({ products }) {
   const [selectedProductId, setSelectedProductId] = useState('');
   const [batteryHealth, setBatteryHealth] = useState('');
   const [generatedText, setGeneratedText] = useState('');
   const [copied, setCopied] = useState(false);
+  
+  const [templateStorage] = useLocalStorage('generate_template', DEFAULT_TEMPLATE);
   const [notes, setNotes] = useLocalStorage('iphone_notes', '');
 
   // States for searchable dropdown
@@ -55,31 +58,17 @@ export function Generate({ products }) {
     }
 
     const isIbox = selectedProduct.name.toLowerCase().includes('ibox');
-    const titleExt = isIbox ? '' : ' All Operator';
-    const simLockLine = isIbox ? '' : '\n- Bukan SIM Lock • Bisa Semua Operator';
+    const labelAllOperator = isIbox ? '' : ' All Operator';
+    const labelSimLock = isIbox ? '' : '\n- Bukan SIM Lock • Bisa Semua Operator';
 
-    const template = `Bismillah ${selectedProduct.name}${titleExt}
+    let result = templateStorage;
+    result = result.replace(/\[NAMA_PRODUK\]/g, selectedProduct.name);
+    result = result.replace(/\[HARGA\]/g, formatRupiah(selectedProduct.price));
+    result = result.replace(/\[BH\]/g, batteryHealth);
+    result = result.replace(/\[LABEL_ALL_OPERATOR\]/g, labelAllOperator);
+    result = result.replace(/\[LABEL_SIM_LOCK\]/g, labelSimLock);
 
-💰 Harga ${formatRupiah(selectedProduct.price)} Nego
-
-Mulus Terawat, Full Normal
-
-DETAIL BARANG:
-
-- BH ${batteryHealth}%${simLockLine}
-- FULLSET
-- Orian semua
-- Kamera D/B Jernih Aman
-- Face ID & True Tone ON
-- Siap garansi
-- Bisa Kredit
-
-📍 COD Kota Malang
-
-Minat WA/DM:
-📞 https://wa.me/6281348831975`;
-
-    setGeneratedText(template);
+    setGeneratedText(result);
     setCopied(false);
   };
 

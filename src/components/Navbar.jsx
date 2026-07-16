@@ -1,5 +1,5 @@
 import React from 'react';
-import { Smartphone, List, StickyNote } from 'lucide-react';
+import { Smartphone, List, StickyNote, FileEdit } from 'lucide-react';
 
 export function Navbar({ currentView, setCurrentView }) {
   return (
@@ -40,6 +40,18 @@ export function Navbar({ currentView, setCurrentView }) {
           >
             <StickyNote size={18} />
             <span className="hidden sm:inline">Catatan</span>
+          </button>
+
+          <button
+            onClick={() => setCurrentView('format')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 font-medium ${
+              currentView === 'format'
+                ? 'bg-primary text-primary-foreground shadow-md scale-105'
+                : 'text-muted-foreground hover:bg-secondary hover:text-secondary-foreground'
+            }`}
+          >
+            <FileEdit size={18} />
+            <span className="hidden sm:inline">Format</span>
           </button>
         </div>
         <div className="pr-2">

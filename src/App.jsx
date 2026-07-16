@@ -3,6 +3,7 @@ import { Navbar } from './components/Navbar';
 import { Generate } from './pages/Generate';
 import { PriceList } from './pages/PriceList';
 import { Notes } from './pages/Notes';
+import { FormatEditor } from './pages/FormatEditor';
 import { useLocalStorage } from './hooks/useLocalStorage';
 
 const DEFAULT_PRODUCTS = [
@@ -31,6 +32,9 @@ function App() {
           )}
           {currentView === 'notes' && (
             <Notes />
+          )}
+          {currentView === 'format' && (
+            <FormatEditor />
           )}
         </div>
       </main>
