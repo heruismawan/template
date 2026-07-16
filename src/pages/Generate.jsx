@@ -54,7 +54,11 @@ export function Generate({ products }) {
       return;
     }
 
-    const template = `Bismillah ${selectedProduct.name} All Operator
+    const isIbox = selectedProduct.name.toLowerCase().includes('ibox');
+    const titleExt = isIbox ? '' : ' All Operator';
+    const simLockLine = isIbox ? '' : '\n- Bukan SIM Lock • Bisa Semua Operator';
+
+    const template = `Bismillah ${selectedProduct.name}${titleExt}
 
 💰 Harga ${formatRupiah(selectedProduct.price)} Nego
 
@@ -62,8 +66,7 @@ Mulus Terawat, Full Normal
 
 DETAIL BARANG:
 
-- BH ${batteryHealth}%
-- Bukan SIM Lock • Bisa Semua Operator
+- BH ${batteryHealth}%${simLockLine}
 - FULLSET
 - Orian semua
 - Kamera D/B Jernih Aman

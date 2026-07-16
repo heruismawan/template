@@ -6,6 +6,7 @@ export function PriceList({ products, setProducts }) {
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [filterType, setFilterType] = useState('all');
 
   const [newName, setNewName] = useState('');
   const [newPrice, setNewPrice] = useState('');
@@ -48,9 +49,13 @@ export function PriceList({ products, setProducts }) {
     }
   };
 
-  const filteredProducts = products.filter(p =>
-    p.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredProducts = products.filter(p => {
+    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const isIbox = p.name.toLowerCase().includes('ibox');
+    if (filterType === 'ibox' && !isIbox) return false;
+    if (filterType === 'inter' && isIbox) return false;
+    return matchesSearch;
+  });
 
   return (
     <div className="space-y-6">
@@ -98,17 +103,38 @@ export function PriceList({ products, setProducts }) {
         </div>
       )}
 
-      <div className="mb-4 relative">
-        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-          <Search size={18} className="text-muted-foreground" />
+      <div className="mb-4 flex flex-col sm:flex-row gap-3">
+        <div className="relative flex-1">
+          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <Search size={18} className="text-muted-foreground" />
+          </div>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-11 pr-4 py-3 rounded-xl border border-border bg-background focus:ring-2 focus:ring-primary outline-none transition-all duration-300 shadow-sm text-foreground placeholder:text-muted-foreground/50"
+          />
         </div>
-        <input
-          type="text"
-
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-11 pr-4 py-3 rounded-xl border border-border bg-background focus:ring-2 focus:ring-primary outline-none transition-all duration-300 shadow-sm text-foreground placeholder:text-muted-foreground/50"
-        />
+        <div className="flex gap-2 p-1 bg-secondary/50 rounded-xl border border-border/50">
+          <button
+            onClick={() => setFilterType('all')}
+            className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 ${filterType === 'all' ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+          >
+            Semua
+          </button>
+          <button
+            onClick={() => setFilterType('inter')}
+            className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 ${filterType === 'inter' ? 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400 shadow' : 'text-muted-foreground hover:text-foreground'}`}
+          >
+            Inter
+          </button>
+          <button
+            onClick={() => setFilterType('ibox')}
+            className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 ${filterType === 'ibox' ? 'bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400 shadow' : 'text-muted-foreground hover:text-foreground'}`}
+          >
+            iBox
+          </button>
+        </div>
       </div>
 
       <div className="overflow-x-auto rounded-xl border border-border">
@@ -139,7 +165,14 @@ export function PriceList({ products, setProducts }) {
                         className="w-full px-3 py-1.5 rounded-md border border-border bg-white dark:bg-white/5 outline-none focus:ring-1 focus:ring-primary text-sm shadow-sm"
                       />
                     ) : (
-                      <span className="font-medium text-foreground">{product.name}</span>
+                      <div className="flex items-center gap-3">
+                        <span className="font-medium text-foreground">{product.name}</span>
+                        {product.name.toLowerCase().includes('ibox') ? (
+                          <span className="px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400 rounded-full border border-red-200 dark:border-red-500/30">iBox</span>
+                        ) : (
+                          <span className="px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400 rounded-full border border-blue-200 dark:border-blue-500/30">Inter</span>
+                        )}
+                      </div>
                     )}
                   </td>
                   <td className="p-4">
